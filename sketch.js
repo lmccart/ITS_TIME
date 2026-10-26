@@ -16,13 +16,14 @@ let textColor;
 let strokeColor;
 let fontScale;
 let isRotating;
+let date;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
   // Choose everything once when the page loads
-  const timeText = timeToWords(new Date());
-  const emotion = random(emotions);
+  let timeText = timeToWords(new Date());
+  let emotion = random(emotions);
 
   message = `IT IS ${timeText} AND I'M FEELING ${emotion}`;
 
@@ -39,6 +40,11 @@ function setup() {
 
 function draw() {
   background(backgroundColor);
+  date = new Date();
+  let s = date.getSeconds();
+  if (s==0) {
+      message = changeMessage();
+  };
 
   push();
 
@@ -51,7 +57,6 @@ function draw() {
   }
 
   // Text appearance
-  console.log(fontScale)
   textSize(fontScale * min(width, height));
   fill(textColor);
   stroke(strokeColor);
@@ -106,4 +111,12 @@ function timeToWords(date) {
 // Resize without changing the random selections
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+}
+
+function changeMessage() {
+  const timeText = timeToWords(new Date());
+  const emotion = random(emotions);
+
+  message = `IT IS ${timeText} AND I'M FEELING ${emotion}`;
+  return message;
 }
