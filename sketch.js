@@ -57,7 +57,9 @@ function draw() {
   }
 
   // Text appearance
-  textSize(fontScale * min(width, height));
+  console.log(fontScale)
+  let breathing = 1 + sin(frameCount * 0.03) * 0.05;
+textSize(fontScale * min(width, height) * breathing);
   fill(textColor);
   stroke(strokeColor);
   strokeWeight(2);
@@ -120,3 +122,18 @@ function changeMessage() {
   message = `IT IS ${timeText} AND I'M FEELING ${emotion}`;
   return message;
 }
+
+
+function mousePressed() {
+  backgroundColor = color(random(255), random(255), random(255));
+  textColor = color(random(255), random(255), random(255));
+  strokeColor = color(random(255), random(255), random(255));
+}function keyPressed() {
+  if (key === ' ') {
+    const timeText = timeToWords(new Date());
+    const emotion = random(emotions);
+
+    message = `IT IS ${timeText} AND I'M FEELING ${emotion}`;
+
+    return false;
+  }
