@@ -112,4 +112,13 @@ function mousePressed() {
   backgroundColor = color(random(255), random(255), random(255));
   textColor = color(random(255), random(255), random(255));
   strokeColor = color(random(255), random(255), random(255));
+}function keyPressed() {
+  if (key === ' ') {
+    const timeText = timeToWords(new Date());
+    const emotion = random(emotions);
+
+    message = `IT IS ${timeText} AND I'M FEELING ${emotion}`;
+
+    return false;
+  }
 }
