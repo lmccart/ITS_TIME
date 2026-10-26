@@ -54,7 +54,8 @@ function draw() {
 
   // Text appearance
   console.log(fontScale)
-  textSize(fontScale * min(width, height));
+  let breathing = 1 + sin(frameCount * 0.03) * 0.05;
+textSize(fontScale * min(width, height) * breathing);
   fill(textColor);
   stroke(strokeColor);
   strokeWeight(2);
@@ -108,4 +109,18 @@ function timeToWords(date) {
 // Resize without changing the random selections
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+}
+function mousePressed() {
+  backgroundColor = color(random(255), random(255), random(255));
+  textColor = color(random(255), random(255), random(255));
+  strokeColor = color(random(255), random(255), random(255));
+}function keyPressed() {
+  if (key === ' ') {
+    const timeText = timeToWords(new Date());
+    const emotion = random(emotions);
+
+    message = `IT IS ${timeText} AND I'M FEELING ${emotion}`;
+
+    return false;
+  }
 }
