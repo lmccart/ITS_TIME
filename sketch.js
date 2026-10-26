@@ -55,6 +55,7 @@ function setup() {
 
   fontScale = random(fontScales);
   isRotating = random() < 0.1; // 10% chance
+  isPulsating = random() < 0.1; // 10% chance
 
   textAlign(CENTER, CENTER);
   textStyle(BOLD);
@@ -71,6 +72,11 @@ function draw() {
   // Rotate around center, if selected
   if (isRotating) {
     rotate(frameCount * 0.01);
+  }
+
+  // Pulsate, if selected
+  if (isPulsating) {
+    scale(sin(millis() / 2500) + 1.5);
   }
 
   // Text appearance
