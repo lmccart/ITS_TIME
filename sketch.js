@@ -5,6 +5,7 @@ const emotions = [
 
 const names = [
   "LAUREN", "MAELYN", "XIANYA", "SCARLETT", "NHAN", "YELTSIN", "VIC", "WYLIE"
+
 ];
 
 const fontScales = [0.03, 0.05, 0.08, 0.11, 0.14];
@@ -14,17 +15,15 @@ let backgroundColor;
 let textColor;
 let strokeColor;
 let fontScale;
-let isRotating; 
-
+let isRotating;
+let date;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
   // Choose everything once when the page loads
-  const timeText = timeToWords(new Date());
-  const emotion = random(emotions);
-  const name = random(names);
-
+  let timeText = timeToWords(new Date());
+  let emotion = random(emotions);
 
   message = `IT IS ${timeText} AND I'M FEELING ${emotion} AND I WANT EAT APPLES AT ${timeText} `;
 
@@ -41,6 +40,11 @@ function setup() {
 
 function draw() {
   background(backgroundColor);
+  date = new Date();
+  let s = date.getSeconds();
+  if (s==0) {
+      message = changeMessage();
+  };
 
   push();
 
@@ -110,6 +114,16 @@ function timeToWords(date) {
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
+
+function changeMessage() {
+  const timeText = timeToWords(new Date());
+  const emotion = random(emotions);
+
+  message = `IT IS ${timeText} AND I'M FEELING ${emotion}`;
+  return message;
+}
+
+
 function mousePressed() {
   backgroundColor = color(random(255), random(255), random(255));
   textColor = color(random(255), random(255), random(255));
@@ -123,4 +137,3 @@ function mousePressed() {
 
     return false;
   }
-}
