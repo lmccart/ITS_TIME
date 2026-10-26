@@ -1,34 +1,11 @@
 const emotions = [
-  "FINE",
-  "HAPPY",
-  "SAD",
-  "TIRED",
-  "ANXIOUS",
-  "EXCITED",
-  "BORED",
-  "CONFUSED",
-  "SUSPICIOUS",
-  "HAUNTED",
-  "OVERQUALIFIED",
-  "UNDERAPPRECIATED",
-  "FRAUDULENT",
-  "GENIUS",
-  "UNSUPERVISED",
-  "READY",
-  "DELICATE",
-  "INCONVENIENT",
-  "PREHISTORIC",
-  "EXPENSIVE",
-  "DRAMATIC",
-  "DELUSIONAL",
-  "UNHINGED",
-  "OPTIMISTIC",
-  "PETTY",
-  "TRANSCENDENT",
-  "OBSOLETE",
-  "INVISIBLE",
-  "FERMENTED",
-  "COMPETENT",
+  
+  "numb"
+];
+
+const names = [
+  "LAUREN", "MAELYN", "XIANYA", "SCARLETT", "NHAN", "YELTSIN", "VIC", "WYLIE"
+
 ];
 
 const fontScales = [0.03, 0.05, 0.08, 0.11, 0.14, 0.17, 0.2];
@@ -39,39 +16,45 @@ let textColor;
 let strokeColor;
 let fontScale;
 let isRotating;
+let date;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
   // Choose everything once when the page loads
-  const timeText = timeToWords(new Date());
-  const emotion = random(emotions);
+  let timeText = timeToWords(new Date());
+  let emotion = random(emotions);
 
-  message = `IT IS ${timeText} AND I'M FEELING ${emotion}`;
+  message = `IT IS ${timeText} AND I'M FEELING ${emotion} AND I WANT EAT APPLES AT ${timeText} `;
 
-  backgroundColor = color(random(255), random(255), random(255));
-  textColor = color(random(255), random(255), random(255));
-  strokeColor = color(random(255), random(255), random(255));
+  backgroundColor = color(random(100,125), random(100,125), random(100,125));
+  textColor = color(random(200,255), random(200,255), random(200,255));
+  strokeColor = color(random(200,255), random(200,255), random(200,255));
 
   fontScale = random(fontScales);
-  isRotating = random() < 0.1; // 10% chance
+  isRotating = random() < 0.5; // 50% chance
   isPulsating = random() < 0.1; // 10% chance
 
-  textAlign(CENTER, CENTER);
+  textAlign(LEFT, CENTER);
   textStyle(BOLD);
 }
 
 function draw() {
   background(backgroundColor);
+  date = new Date();
+  let s = date.getSeconds();
+  if (s==0) {
+      message = changeMessage();
+  };
 
   push();
 
   // Move origin to center of canvas
-  translate(width / 2, height / 2);
+  translate(width / 3, height / 2);
 
   // Rotate around center, if selected
   if (isRotating) {
-    rotate(frameCount * 0.01);
+    rotate(frameCount * 0.005);
   }
 
   // Pulsate, if selected
@@ -80,8 +63,9 @@ function draw() {
   }
 
   // Text appearance
-  console.log(fontScale);
-  textSize(fontScale * min(width, height));
+  console.log(fontScale)
+  let breathing = 1 + sin(frameCount * 0.03) * 0.05;
+textSize(fontScale * min(width, height) * breathing);
   fill(textColor);
   stroke(strokeColor);
   strokeWeight(2);
@@ -137,3 +121,26 @@ function timeToWords(date) {
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
+
+function changeMessage() {
+  const timeText = timeToWords(new Date());
+  const emotion = random(emotions);
+
+  message = `IT IS ${timeText} AND I'M FEELING ${emotion}`;
+  return message;
+}
+
+
+function mousePressed() {
+  backgroundColor = color(random(255), random(255), random(255));
+  textColor = color(random(255), random(255), random(255));
+  strokeColor = color(random(255), random(255), random(255));
+}function keyPressed() {
+  if (key === ' ') {
+    const timeText = timeToWords(new Date());
+    const emotion = random(emotions);
+
+    message = `IT IS ${timeText} AND I'M FEELING ${emotion}`;
+
+    return false;
+  }
