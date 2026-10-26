@@ -1,14 +1,37 @@
 const emotions = [
-  "FINE", "HAPPY", "SAD", "TIRED", "ANXIOUS",
-  "EXCITED", "BORED", "CONFUSED", "SUSPICIOUS", "HAUNTED",
-  "OVERQUALIFIED", "UNDERAPPRECIATED", "FRAUDULENT", "GENIUS",
-  "UNSUPERVISED", "READY", "DELICATE", "INCONVENIENT",
-  "PREHISTORIC", "EXPENSIVE", "DRAMATIC", "DELUSIONAL",
-  "UNHINGED", "OPTIMISTIC", "PETTY", "TRANSCENDENT",
-  "OBSOLETE", "INVISIBLE", "FERMENTED", "COMPETENT"
+  "FINE",
+  "HAPPY",
+  "SAD",
+  "TIRED",
+  "ANXIOUS",
+  "EXCITED",
+  "BORED",
+  "CONFUSED",
+  "SUSPICIOUS",
+  "HAUNTED",
+  "OVERQUALIFIED",
+  "UNDERAPPRECIATED",
+  "FRAUDULENT",
+  "GENIUS",
+  "UNSUPERVISED",
+  "READY",
+  "DELICATE",
+  "INCONVENIENT",
+  "PREHISTORIC",
+  "EXPENSIVE",
+  "DRAMATIC",
+  "DELUSIONAL",
+  "UNHINGED",
+  "OPTIMISTIC",
+  "PETTY",
+  "TRANSCENDENT",
+  "OBSOLETE",
+  "INVISIBLE",
+  "FERMENTED",
+  "COMPETENT",
 ];
 
-const fontScales = [0.03, 0.05, 0.08, 0.11, 0.14];
+const fontScales = [0.03, 0.05, 0.08, 0.11, 0.14, 0.17, 0.2];
 
 let message;
 let backgroundColor;
@@ -51,20 +74,14 @@ function draw() {
   }
 
   // Text appearance
-  console.log(fontScale)
+  console.log(fontScale);
   textSize(fontScale * min(width, height));
   fill(textColor);
   stroke(strokeColor);
   strokeWeight(2);
 
   // Centered text box
-  text(
-    message,
-    -width * 0.45,
-    -height * 0.45,
-    width * 0.9,
-    height * 0.9
-  );
+  text(message, -width * 0.45, -height * 0.45, width * 0.9, height * 0.9);
 
   pop();
 }
@@ -76,29 +93,36 @@ function timeToWords(date) {
   let p = date.getHours() < 12 ? "AM" : "PM";
 
   const ones = [
-    "ZERO", "ONE", "TWO", "THREE", "FOUR",
-    "FIVE", "SIX", "SEVEN", "EIGHT", "NINE",
-    "TEN", "ELEVEN", "TWELVE", "THIRTEEN",
-    "FOURTEEN", "FIFTEEN", "SIXTEEN",
-    "SEVENTEEN", "EIGHTEEN", "NINETEEN"
+    "ZERO",
+    "ONE",
+    "TWO",
+    "THREE",
+    "FOUR",
+    "FIVE",
+    "SIX",
+    "SEVEN",
+    "EIGHT",
+    "NINE",
+    "TEN",
+    "ELEVEN",
+    "TWELVE",
+    "THIRTEEN",
+    "FOURTEEN",
+    "FIFTEEN",
+    "SIXTEEN",
+    "SEVENTEEN",
+    "EIGHTEEN",
+    "NINETEEN",
   ];
 
-  const tens = [
-    "", "", "TWENTY", "THIRTY", "FORTY", "FIFTY"
-  ];
+  const tens = ["", "", "TWENTY", "THIRTY", "FORTY", "FIFTY"];
 
-  const spell = n =>
+  const spell = (n) =>
     n < 20
       ? ones[n]
-      : tens[Math.floor(n / 10)] +
-        (n % 10 ? " " + ones[n % 10] : "");
+      : tens[Math.floor(n / 10)] + (n % 10 ? " " + ones[n % 10] : "");
 
-  const minuteText =
-    m === 0
-      ? "O'CLOCK"
-      : m < 10
-        ? "OH " + spell(m)
-        : spell(m);
+  const minuteText = m === 0 ? "O'CLOCK" : m < 10 ? "OH " + spell(m) : spell(m);
 
   return `${spell(h)} ${minuteText} ${p}`;
 }
